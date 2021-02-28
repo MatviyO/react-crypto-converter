@@ -4,7 +4,7 @@ import {
     Container,
     createStyles,
     FormControl,
-    Grid,
+    Grid, InputLabel,
     makeStyles,
     MenuItem,
     Paper,
@@ -29,10 +29,11 @@ const useStyles = makeStyles((theme: Theme) =>
             justifyContent: 'space-between'
         },
         currencyInput: {
-            minWidth: '80%'
+            minWidth: 'calc(70% - 10px)',
+            marginRight: 10
         },
         currencyType: {
-            minWidth: '20%'
+            minWidth: '30%'
         }
     })
 )
@@ -48,9 +49,23 @@ function App() {
                 <Paper className={classes.paper}>
                     <div className={classes.cryptoInputBox}>
                         <FormControl className={classes.currencyInput}>
-                            <TextField fullWidth label="Currency" />
+                            <TextField fullWidth label="Total" />
                         </FormControl>
                         <FormControl className={classes.currencyType}>
+                            <InputLabel shrink>Currency</InputLabel>
+                            <Select value={10}>
+                                <MenuItem value={10}>Ten</MenuItem>
+                                <MenuItem value={20}>Twenty</MenuItem>
+                                <MenuItem value={30}>Thirty</MenuItem>
+                            </Select>
+                        </FormControl>
+                    </div>
+                    <div className={classes.cryptoInputBox}>
+                        <FormControl className={classes.currencyInput}>
+                            <TextField fullWidth label="Total" />
+                        </FormControl>
+                        <FormControl className={classes.currencyType}>
+                            <InputLabel shrink>Currency</InputLabel>
                             <Select value={10}>
                                 <MenuItem value={10}>Ten</MenuItem>
                                 <MenuItem value={20}>Twenty</MenuItem>
