@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import {
     Container,
     createStyles,
@@ -23,11 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
             textAlign: 'center',
             color: theme.palette.text.secondary
         },
-        cryptoInputBox: {
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between'
-        },
+
         currencyInput: {
             minWidth: 'calc(70% - 10px)',
             marginRight: 10
@@ -47,7 +42,7 @@ function App() {
             </Grid>
             <Grid item xs={4}>
                 <Paper className={classes.paper}>
-                    <div className={classes.cryptoInputBox}>
+                    <div >
                         <FormControl className={classes.currencyInput}>
                             <TextField fullWidth label="Total" />
                         </FormControl>
@@ -60,7 +55,7 @@ function App() {
                             </Select>
                         </FormControl>
                     </div>
-                    <div className={classes.cryptoInputBox}>
+                    <div >
                         <FormControl className={classes.currencyInput}>
                             <TextField fullWidth label="Total" />
                         </FormControl>
