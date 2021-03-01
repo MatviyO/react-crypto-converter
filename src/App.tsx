@@ -9,7 +9,7 @@ import {
     Paper,
     Select,
     TextField,
-    Theme
+    Theme, Typography
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -22,7 +22,10 @@ const useStyles = makeStyles((theme: Theme) =>
             textAlign: 'center',
             color: theme.palette.text.secondary
         },
-
+        cryptoInputBox: {
+            marginBottom: 20,
+            marginTop: 10
+        },
         currencyInput: {
             minWidth: 'calc(70% - 10px)',
             marginRight: 10
@@ -42,7 +45,7 @@ function App() {
             </Grid>
             <Grid item xs={4}>
                 <Paper className={classes.paper}>
-                    <div >
+                    <div className={classes.cryptoInputBox}>
                         <FormControl className={classes.currencyInput}>
                             <TextField fullWidth label="Total" />
                         </FormControl>
@@ -55,7 +58,7 @@ function App() {
                             </Select>
                         </FormControl>
                     </div>
-                    <div >
+                    <div className={classes.cryptoInputBox}>
                         <FormControl className={classes.currencyInput}>
                             <TextField fullWidth label="Total" />
                         </FormControl>
@@ -68,6 +71,7 @@ function App() {
                             </Select>
                         </FormControl>
                     </div>
+                    <Typography variant="h5" component="h3">77,33 ukrainian </Typography>
                 </Paper>
             </Grid>
         </Grid>
