@@ -67,6 +67,7 @@ function App() {
             setAllCoins(coins);
         })
     }, [])
+    
 
     return (
         <Container className={classes.root} maxWidth="lg">
