@@ -65,8 +65,8 @@ function App() {
                     name: coin.CoinInfo.Name,
                     fullName: coin.CoinInfo.FullName,
                     imageUrl: `https://www.cryptocompare.com/${coin.CoinInfo.ImageUrl}`,
-                    price: parseInt(coin.RAW.USD.PRICE),
-                    volume24Hour: parseInt(coin.RAW.USD.VOLUME24HOUR),
+                    price: coin.RAW.USD.PRICE.toFixed(4),
+                    volume24Hour: coin.RAW.USD.VOLUME24HOUR.toFixed(4),
                 }
                 return obj;
             });
@@ -96,8 +96,8 @@ function App() {
                                         <TableCell><img className={classes.currencyIcon} src={coin.imageUrl} alt={coin.name}/></TableCell>
                                         <TableCell align="left">{coin.name}</TableCell>
                                         <TableCell align="left">{coin.fullName}</TableCell>
-                                        <TableCell align="left">{coin.price}</TableCell>
-                                        <TableCell align="left">{coin.volume24Hour}</TableCell>
+                                        <TableCell align="left">${coin.price}</TableCell>
+                                        <TableCell align="left">${coin.volume24Hour}</TableCell>
                                     </TableRow>
                                 ))}
                             </TableBody>
