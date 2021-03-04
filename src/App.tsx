@@ -7,11 +7,13 @@ import {
     makeStyles,
     MenuItem,
     Paper,
-    Select, Table, TableBody, TableCell, TableContainer, TableHead, TableRow,
+    Select,
     TextField,
-    Theme, Typography
+    Theme
 } from "@material-ui/core";
 import axios from 'axios'
+import {TCoin} from "./types";
+import {ConverterBlock, CryptoTable} from "./components";
 
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -46,13 +48,7 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 )
 
-type TCoin = {
-  name: string;
-  fullName: string;
-  imageUrl: string;
-  price: number;
-  volume24Hour: number;
-}
+
 
 function App() {
     const classes = useStyles();
@@ -78,62 +74,10 @@ function App() {
         <Container className={classes.root} maxWidth="lg">
             <Grid container spacing={3}>
                 <Grid item xs={8}>
-
-                    <TableContainer component={Paper}>
-                        <Table className={classes.table} size="small" aria-label="a dense table">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell></TableCell>
-                                    <TableCell align="left">Name</TableCell>
-                                    <TableCell align="left">FullName</TableCell>
-                                    <TableCell align="left">Price</TableCell>
-                                    <TableCell align="left">volume24hour</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {allCoins.map((coin) => (
-                                    <TableRow key={coin.name}>
-                                        <TableCell><img className={classes.currencyIcon} src={coin.imageUrl} alt={coin.name}/></TableCell>
-                                        <TableCell align="left">{coin.name}</TableCell>
-                                        <TableCell align="left">{coin.fullName}</TableCell>
-                                        <TableCell align="left">${coin.price}</TableCell>
-                                        <TableCell align="left">${coin.volume24Hour}</TableCell>
-                                    </TableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
+                    <CryptoTable items={allCoins} classes={classes} />
                 </Grid>
                 <Grid item xs={4}>
-                    <Paper className={classes.paper}>
-                        <div className={classes.cryptoInputBox}>
-                            <FormControl className={classes.currencyInput}>
-                                <TextField fullWidth label="Total"/>
-                            </FormControl>
-                            <FormControl className={classes.currencyType}>
-                                <InputLabel shrink>Currency</InputLabel>
-                                <Select value={10}>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </div>
-                        <div className={classes.cryptoInputBox}>
-                            <FormControl className={classes.currencyInput}>
-                                <TextField fullWidth label="Total"/>
-                            </FormControl>
-                            <FormControl className={classes.currencyType}>
-                                <InputLabel shrink>Currency</InputLabel>
-                                <Select value={10}>
-                                    <MenuItem value={10}>Ten</MenuItem>
-                                    <MenuItem value={20}>Twenty</MenuItem>
-                                    <MenuItem value={30}>Thirty</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </div>
-                        <Typography variant="h5" component="h3">77,33 ukrainian </Typography>
-                    </Paper>
+                    <ConverterBlock classes={classes}/>
                 </Grid>
             </Grid>
         </Container>
