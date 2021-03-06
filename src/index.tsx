@@ -4,11 +4,12 @@ import App from './App';
 
 import './index.css';
 import {Provider} from "mobx-react";
+import stores from "./stores";
 
 
 ReactDOM.render(
   <React.StrictMode>
-      <Provider>
+      <Provider {...stores}>
           <App />
       </Provider>
   </React.StrictMode>,
