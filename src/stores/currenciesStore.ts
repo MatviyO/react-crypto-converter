@@ -33,6 +33,15 @@ class CurrenciesStore {
         })
     }
 
+    diffCurriencies(arr1: TCoin[], arr2: TCoin[]) {
+        return arr1.filter((obj, index) => {
+            if(obj.price !== arr2[index].price) {
+                return true;
+            }
+            return false;
+        })
+    }
+
 }
 
 export default CurrenciesStore

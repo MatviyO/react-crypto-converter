@@ -9,6 +9,7 @@ interface ICtyptoTable {
     currenciesStore?: CurrenciesStore;
 }
 
+
 const CryptoTable = inject('currenciesStore')(
     observer(({classes, currenciesStore}: ICtyptoTable) => {
             const items: TCoin[] = currenciesStore!.getItems;
@@ -38,7 +39,7 @@ const CryptoTable = inject('currenciesStore')(
                                                     alt={coin.name}/></TableCell>
                                     <TableCell align="left">{coin.name}</TableCell>
                                     <TableCell align="left">{coin.fullName}</TableCell>
-                                    <TableCell align="left">${coin.price}</TableCell>
+                                    <TableCell className={classes.columnGreen} align="left">${coin.price}</TableCell>
                                     <TableCell align="left">${coin.volume24Hour}</TableCell>
                                 </TableRow>
                             ))}
