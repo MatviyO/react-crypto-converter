@@ -1,9 +1,7 @@
 import {action, computed, observable} from "mobx";
-import {TCoin} from "../types";
+import {TCoin, TCoinDiff} from "../types";
 import axios from "axios";
 
-
-type TCoinDiff = {[key: string]: string}
 
 class CurrenciesStore {
     @observable private items: TCoin[] = [];
@@ -14,16 +12,22 @@ class CurrenciesStore {
         return this.items;
     }
 
+    @computed
+    get getDiffobject() {
+        return this.diffObj;
+    }
+
     @action
     setItems = (items: TCoin[]): void => {
-        this.items = items;
-        this.diffObj = this.diffCurriencies(this.items, items).reduce((initObj: TCoinDiff, newObj: TCoin) => {
+        this.diffObj = this.diffCurriencies(this.items, items).reduce((initObj: TCoinDiff, obj: TCoin) => {
+            const newObj = items.find(o => o.name === obj.name);
             const oldObj: TCoin = this.items.find(el => el.name === newObj.name) || newObj;
-            const color: string = newObj?.price > oldObj.price ? 'green' : 'red';
+            const color: string = newObj.price === oldObj.price ? '': newObj.price > oldObj.price ? 'green' : 'red';
 
             initObj[newObj.name] = color;
             return initObj;
         }, {});
+        this.items = items;
     }
 
     @action
