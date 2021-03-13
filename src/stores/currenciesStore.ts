@@ -3,8 +3,14 @@ import {TCoin} from "../types";
 import axios from "axios";
 
 
+type TCoinDiff = {
+    name: string;
+    color: string;
+}
+
 class CurrenciesStore {
     @observable private items: TCoin[] = [];
+    @observable private diffItems: TCoinDiff[] = [];
 
     @computed
     get getItems() {
