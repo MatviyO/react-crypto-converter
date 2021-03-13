@@ -17,13 +17,12 @@ class CurrenciesStore {
     @action
     setItems = (items: TCoin[]): void => {
         this.items = items;
-        this.diffObj = this.diffCurriencies(this.items, items).reduce((initObj,newObj) => {
+        this.diffObj = this.diffCurriencies(this.items, items).reduce((initObj: TCoinDiff, newObj: TCoin) => {
             const oldObj: TCoin = this.items.find(el => el.name === newObj.name) || newObj;
-            const color: string = newObj?.price > oldObj.price ? 'green' : 'red'
-            return {
-                name: newObj.name,
-                color
-            };
+            const color: string = newObj?.price > oldObj.price ? 'green' : 'red';
+
+            initObj[newObj.name] = color;
+            return initObj;
         }, {});
     }
 
