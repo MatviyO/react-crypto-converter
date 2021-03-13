@@ -3,14 +3,11 @@ import {TCoin} from "../types";
 import axios from "axios";
 
 
-type TCoinDiff = {
-    name: string;
-    color: string;
-}
+type TCoinDiff = {[key: string]: string}
 
 class CurrenciesStore {
     @observable private items: TCoin[] = [];
-    @observable private diffItems: TCoinDiff[] = [];
+    @observable private diffObj: TCoinDiff = {};
 
     @computed
     get getItems() {
@@ -20,6 +17,14 @@ class CurrenciesStore {
     @action
     setItems = (items: TCoin[]): void => {
         this.items = items;
+        this.diffObj = this.diffCurriencies(this.items, items).reduce((initObj,newObj) => {
+            const oldObj: TCoin = this.items.find(el => el.name === newObj.name) || newObj;
+            const color: string = newObj?.price > oldObj.price ? 'green' : 'red'
+            return {
+                name: newObj.name,
+                color
+            };
+        }, {});
     }
 
     @action
