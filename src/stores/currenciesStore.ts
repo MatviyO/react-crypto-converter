@@ -28,6 +28,9 @@ class CurrenciesStore {
             return initObj;
         }, {});
         this.items = items;
+        setTimeout(() => {
+            this.diffObj = {};
+        }, 15000)
     }
 
     @action

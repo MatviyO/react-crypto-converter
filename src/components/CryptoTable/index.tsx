@@ -17,19 +17,16 @@ const CryptoTable = inject('currenciesStore')(
 
 
             useEffect(() => {
-                // if (currenciesStore) {
+                currenciesStore?.fetchCoins()
+                setInterval(() => {
                     currenciesStore?.fetchCoins()
-                console.log(items)
-                    setInterval(() => {
-                        currenciesStore!.fetchCoins()
-                    }, 30 * 1000)
-                // }
+                }, 30 * 1000)
 
-            }, [])
+            }, [items])
 
             return (
                 <TableContainer component={Paper}>
-                    <Table className={classes.table} size="small" aria-label="a dense table">
+                    <Table stickyHeader className={classes.table} size="small" aria-label="a dense table">
                         <TableHead>
                             <TableRow>
                                 <TableCell></TableCell>
@@ -41,12 +38,13 @@ const CryptoTable = inject('currenciesStore')(
                         </TableHead>
                         <TableBody>
                             {!items.length ? '...Loading' : items.map((coin) => (
-                                <TableRow key={coin.name}>
+                                <TableRow className={classes.rowCurrency} hover key={coin.name}>
                                     <TableCell><img className={classes.currencyIcon} src={coin.imageUrl}
                                                     alt={coin.name}/></TableCell>
                                     <TableCell align="left">{coin.name}</TableCell>
                                     <TableCell align="left">{coin.fullName}</TableCell>
-                                    <TableCell className={diffObj[coin.name] && classes[`${diffObj[coin.name]}Column`]} align="left">${coin.price}</TableCell>
+                                    <TableCell className={diffObj[coin.name] && classes[`${diffObj[coin.name]}Column`]}
+                                               align="left">${coin.price}</TableCell>
                                     <TableCell align="left">${coin.volume24Hour}</TableCell>
                                 </TableRow>
                             ))}
