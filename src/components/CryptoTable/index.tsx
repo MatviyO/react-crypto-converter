@@ -3,15 +3,17 @@ import {Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow}
 import {TCoin, TCoinDiff} from "../../types";
 import {inject, observer} from "mobx-react";
 import CurrenciesStore from "../../stores/currenciesStore";
+import ConverterStore from "../../stores/ConverterStore";
 
 interface ICtyptoTable {
     classes: any;
     currenciesStore?: CurrenciesStore;
+    converterStore?: ConverterStore;
 }
 
 
-const CryptoTable = inject('currenciesStore')(
-    observer(({classes, currenciesStore}: ICtyptoTable) => {
+const CryptoTable = inject('currenciesStore', 'converterStore')(
+    observer(({classes, currenciesStore, converterStore}: ICtyptoTable) => {
             const items: TCoin[] = currenciesStore!.getItems;
             const diffObj: TCoinDiff = currenciesStore!.getDiffobject;
 
@@ -23,6 +25,10 @@ const CryptoTable = inject('currenciesStore')(
                 }, 30 * 1000)
 
             }, [items])
+
+            const onClickRow = (coin: TCoin) => {
+                converterStore?.setSelectedCoin(coin);
+            }
 
             return (
                 <TableContainer component={Paper}>
@@ -38,7 +44,7 @@ const CryptoTable = inject('currenciesStore')(
                         </TableHead>
                         <TableBody>
                             {!items.length ? '...Loading' : items.map((coin) => (
-                                <TableRow className={classes.rowCurrency} hover key={coin.name}>
+                                <TableRow onClick={() => onClickRow(coin)} className={classes.rowCurrency} hover key={coin.name}>
                                     <TableCell><img className={classes.currencyIcon} src={coin.imageUrl}
                                                     alt={coin.name}/></TableCell>
                                     <TableCell align="left">{coin.name}</TableCell>
