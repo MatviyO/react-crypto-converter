@@ -20,8 +20,8 @@ class CurrenciesStore {
     @action
     setItems = (items: TCoin[]): void => {
         this.diffObj = this.diffCurriencies(this.items, items).reduce((initObj: TCoinDiff, obj: TCoin) => {
-            const newObj = items.find(o => o.name === obj.name);
-            const oldObj: TCoin = this.items.find(el => el.name === newObj.name) || newObj;
+            const newObj: TCoin = items.find(o => o.name === obj.name)!;
+            const oldObj: TCoin = this.items.find(el => el.name === newObj.name)!;
             const color: string = newObj.price === oldObj.price ? '': newObj.price > oldObj.price ? 'green' : 'red';
 
             initObj[newObj.name] = color;
@@ -31,8 +31,8 @@ class CurrenciesStore {
     }
 
     @action
-    fetchCoins = () => {
-        axios.get('https://min-api.cryptocompare.com/data/top/totalvolfull?limit=10&tsym=USD').then(({data}) => {
+    fetchCoins = async() => {
+        await axios.get('https://min-api.cryptocompare.com/data/top/totalvolfull?limit=10&tsym=USD').then(({data}) => {
             const coins: TCoin[] = data.Data.map((coin: any) => {
                 const obj: TCoin = {
                     name: coin.CoinInfo.Name,
@@ -43,7 +43,7 @@ class CurrenciesStore {
                 }
                 return obj;
             });
-            this.items = coins;
+            this.setItems(coins)
         })
     }
 
